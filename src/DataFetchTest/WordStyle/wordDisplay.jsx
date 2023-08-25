@@ -1,31 +1,26 @@
 import React from 'react';
 import {spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {FONT_FAMILY} from './constants';
+import {FONT_FAMILY} from '../constants';
 
-const title: React.CSSProperties = {
-	fontFamily: FONT_FAMILY,
-	fontWeight: 'bold',
-	fontSize: 100,
-	textAlign: 'center',
-	position: 'absolute',
-	bottom: 160,
-	width: '100%',
-};
+export const WordDisplay = ({titleText, styleProp = {}}) => {
+	const title = {
+		fontFamily: FONT_FAMILY,
+		fontWeight: 'bold',
+		fontSize: 50,
+		width: '100%',
+	};
 
-const word: React.CSSProperties = {
-	marginLeft: 10,
-	marginRight: 10,
-	display: 'inline-block',
-};
+	const word = {
+		marginLeft: 5,
+		marginRight: 5,
+		display: 'inline-block',
+		color: styleProp.color || 'black',
+	};
 
-export const Title: React.FC<{
-	titleText: string;
-	titleColor: string;
-}> = ({titleText, titleColor}) => {
 	const videoConfig = useVideoConfig();
 	const frame = useCurrentFrame();
 
-	const words = titleText.split(' ');
+	const words = titleText.toString().split(' ');
 
 	return (
 		<h1 style={title}>
@@ -45,7 +40,6 @@ export const Title: React.FC<{
 						key={t}
 						style={{
 							...word,
-							color: titleColor,
 							transform: `scale(${scale})`,
 						}}
 					>
